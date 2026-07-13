@@ -5,7 +5,8 @@ High-precision Reward Model (RM) for evaluating and detecting human body deformi
 <div align="center">
   <img src="images/0a62d937-0022-4170-97e4-13a12a0336c0.png" width="30%" alt="Extra hands and malformed fingers"/> 
   <img src="images/1a719f58-dc29-4ddc-879a-aa2b9e8d6bab.png" width="30%" alt="Extra hands"/> 
-  <img src="generation-11fe54a7-9f7f-445d-9c63-4ddba33b9938.png" width="30%" alt="Disproportionate head proportions"/>
+  <img src="images/generation-11fe54a7-9f7f-445d-9c63-4ddba33b9938.png
+" width="30%" alt="Disproportionate head proportions"/>
 </div>
 
 ## 📰 News

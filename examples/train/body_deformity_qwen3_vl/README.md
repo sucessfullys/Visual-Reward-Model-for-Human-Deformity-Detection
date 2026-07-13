@@ -14,23 +14,7 @@ MS-SWIFT's stable multimodal format keeps the image placeholder in `messages[*].
 and stores the actual image path in the top-level `images` field:
 
 ```json
-{
-  "messages": [
-    {
-      "role": "system",
-      "content": "你是人体畸形检测助手。判断图中人体是否存在结构畸形，并给出可见证据。最后用 <conclusion>normal</conclusion> 或 <conclusion>abnormal</conclusion> 输出结论。"
-    },
-    {
-      "role": "user",
-      "content": "<image>这张图片是否存在人体畸形？请说明理由。"
-    },
-    {
-      "role": "assistant",
-      "content": "<think>图中手部比例异常，手指数量或形态不自然，局部结构与正常人体解剖不一致。</think>\n<conclusion>abnormal</conclusion>"
-    }
-  ],
-  "images": ["/absolute/path/to/image.jpg"]
-}
+xxx (暂未公开)
 ```
 
 `sample_body_deformity.jsonl` is only for smoke testing. Replace it with your real
@@ -41,14 +25,14 @@ JSONL when the HumanRefiner annotations are ready.
 Activate your `ms-swift` environment, then run:
 
 ```bash
-cd /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift
-bash /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/train/body_deformity_qwen3_vl/smoke_sft.sh
+cd xxx
+bash xxx/smoke_sft.sh
 ```
 
 The LoRA script defaults to:
 
-- model: `/mnt/image-edit/datasets/duanyufa/models/Qwen3-VL-8B-Instruct`
-- dataset: `examples/train/body_deformity_qwen3_vl/sample_body_deformity.jsonl`
+- model: `xxx/Qwen3-VL-8B-Instruct`
+- dataset: `xxx/sample_body_deformity.jsonl`
 - strategy: SFT + LoRA on the LLM part
 - frozen modules: ViT and aligner/projector
 - epochs: `NUM_TRAIN_EPOCHS=1`
@@ -61,14 +45,14 @@ CUDA_VISIBLE_DEVICES=0,1 \
 NPROC_PER_NODE=2 \
 MAX_STEPS=5 \
 DATASET_PATH=/path/to/your_real_dataset.jsonl \
-bash /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/train/body_deformity_qwen3_vl/smoke_sft.sh
+bash xxx/smoke_sft.sh
 ```
 
 For a one-step smoke test, set `MAX_STEPS=1` explicitly:
 
 ```bash
 MAX_STEPS=1 \
-bash /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/train/body_deformity_qwen3_vl/smoke_sft.sh
+bash xxx/smoke_sft.sh
 ```
 
 Enable DeepSpeed when using multiple GPUs:
@@ -77,7 +61,7 @@ Enable DeepSpeed when using multiple GPUs:
 CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 \
 NPROC_PER_NODE=8 \
 DEEPSPEED=zero2 \
-bash /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/train/body_deformity_qwen3_vl/smoke_sft.sh
+bash xxx/smoke_sft.sh
 ```
 
 ## Full SFT
@@ -85,8 +69,8 @@ bash /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/
 If you want SFT without LoRA adapters, use:
 
 ```bash
-cd /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift
-bash /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/train/body_deformity_qwen3_vl/smoke_sft_full.sh
+cd xxx/ms-swift
+bash xxx/smoke_sft_full.sh
 ```
 
 This uses `--tuner_type full`, freezes the ViT and aligner, and trains the LLM
@@ -109,7 +93,7 @@ WARMUP_RATIO=0.05 \
 WEIGHT_DECAY=0.1 \
 SAVE_STEPS=100 \
 EVAL_STRATEGY=no \
-bash /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/train/body_deformity_qwen3_vl/smoke_sft_full.sh
+bash xxx/smoke_sft_full.sh
 ```
 
 If memory is still tight, switch to `DEEPSPEED=zero3`. ZeRO-3 saves more memory
@@ -120,7 +104,7 @@ by sharding parameters too, but it usually has more communication overhead.
 After a checkpoint is saved, run:
 
 ```bash
-ADAPTER_PATH=/mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/output/body_deformity_qwen3_vl_smoke/vx-xxx/checkpoint-xxx \
-VAL_DATASET_PATH=/mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/train/body_deformity_qwen3_vl/sample_body_deformity.jsonl \
-bash /mnt/image-edit/datasets/duanyufa/task_shengsheng/models/ms-swift/examples/train/body_deformity_qwen3_vl/infer_adapter.sh
+ADAPTER_PATH=xxx/vx-xxx/checkpoint-xxx \
+VAL_DATASET_PATH=xxx/sample_body_deformity.jsonl \
+bash xxx/infer_adapter.sh
 ```

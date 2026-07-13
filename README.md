@@ -2,6 +2,11 @@
 
 High-precision Reward Model (RM) for evaluating and detecting human body deformities. This project is built on top of ms-swift and is optimized for RLHF and visual alignment tasks.
 
+## 📰 News
+
+- **[2026.7.13]**: 🤗  Release SFT training code
+- **[xxxx.x.xx]**: 🔥  We are releasing the human body deformities dataset
+
 ## 📋 Table of Contents
 
 1. [🛠️ Installation](#%EF%B8%8F-installation)

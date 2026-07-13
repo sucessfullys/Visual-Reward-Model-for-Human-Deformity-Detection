@@ -5,7 +5,7 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 cd "${PROJECT_DIR}"
 export PYTHONPATH="${PROJECT_DIR}:${PYTHONPATH:-}"
 
-MODEL_PATH="${MODEL_PATH:-/mnt/image-edit/datasets/duanyufa/models/Qwen3-VL-8B-Instruct}"
+MODEL_PATH="${MODEL_PATH:-xxx/Qwen3-VL-8B-Instruct}"
 DATASET_PATH="${DATASET_PATH:-${PROJECT_DIR}/examples/train/body_deformity_qwen3_vl/sample_body_deformity.jsonl}"
 OUTPUT_DIR="${OUTPUT_DIR:-${PROJECT_DIR}/output/body_deformity_qwen3_vl_full_sft_smoke}"
 

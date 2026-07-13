@@ -11,11 +11,14 @@ High-precision Reward Model (RM) for evaluating and detecting human body deformi
 ## 📰 News
 
 - **[2026.7.13]**: 🤗  Release SFT training code
+- **[xxxx.x.xx]**: 🔥  We will continue to refine the codebase
 - **[xxxx.x.xx]**: 🔥  We are releasing the human body deformities dataset
+- **[xxxx.x.xx]**: 🔥  We are releasing the RL training code
 
 ## 📋 Table of Contents
 
 1. [🛠️ Installation](#%EF%B8%8F-installation)
+2. [💗 Acknowledgement](#acknowledgement)
 
 ## 🛠️ Installation
 
@@ -51,3 +54,9 @@ Running Environment:
 | sglang       | >=0.4.6      |                | Inference/Deployment                      |
 | evalscope    | >=1.0        |                | Evaluation                                |
 | gradio       |              | 5.32.1         | Web-UI/App                                |
+
+## 💗 Acknowledgement <a name="acknowledgement"></a> 
+We would like to express our sincere gratitude to the following open-source projects:
+- [Qwen-VL](https://github.com/QwenLM/Qwen-VL)
+- [LLaVA-Factory](https://github.com/hiyouga/LLaMA-Factory) 
+- [ms-swift](https://github.com/modelscope/ms-swift)

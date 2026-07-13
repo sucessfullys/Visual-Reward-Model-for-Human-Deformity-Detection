@@ -12,6 +12,7 @@ High-precision Reward Model (RM) for evaluating and detecting human body deformi
 
 - **[2026.7.13]**: 🤗  Release SFT training code
 - **[xxxx.x.xx]**: 🔥  We will continue to refine the codebase
+- **[xxxx.x.xx]**: 🔥  We are releasing the data generation pipeline based on SAM3 and Gemma
 - **[xxxx.x.xx]**: 🔥  We are releasing the human body deformities dataset
 - **[xxxx.x.xx]**: 🔥  We are releasing the RL training code
 

@@ -1,0 +1,435 @@
+{
+    "task": "domain-specific-object-detection",
+    "framework": "pytorch",
+    "plugins": [
+        "pai-easycv>=0.11.0"
+    ],
+    "preprocessor": {},
+    "model": {
+        "type": "YOLOX",
+        "test_conf": 0.01,
+        "nms_thre": 0.65,
+        "backbone": "RepVGGYOLOX",
+        "model_type": "s",
+        "head": {
+            "type": "YOLOXHead",
+            "model_type": "s",
+            "obj_loss_type": "BCE",
+            "reg_loss_type": "giou",
+            "num_classes": 1,
+            "decode_in_inference": true
+        }
+    },
+    "dataset": {
+        "train": {
+            "type": "DetImagesMixDataset",
+            "data_source": {
+                "type": "DetSourceCoco",
+                "ann_file": "/home/shouzhou.bx/workspace/2d_hand/dataset_hand_2d/datasets_TVCOCO_hand_train/to_coco/annotations/instances_train2017.json",
+                "img_prefix": "/home/shouzhou.bx/workspace/2d_hand/dataset_hand_2d/datasets_TVCOCO_hand_train/to_coco/train2017/",
+                "pipeline": [
+                    {
+                        "type": "LoadImageFromFile",
+                        "to_float32": true
+                    },
+                    {
+                        "type": "LoadAnnotations",
+                        "with_bbox": true
+                    }
+                ],
+                "classes": [
+                    "hand"
+                ],
+                "filter_empty_gt": true,
+                "iscrowd": false
+            },
+            "pipeline": [
+                {
+                    "type": "MMMosaic",
+                    "img_scale": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            640,
+                            640
+                        ]
+                    },
+                    "pad_val": 114.0
+                },
+                {
+                    "type": "MMRandomAffine",
+                    "scaling_ratio_range": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            0.1,
+                            2
+                        ]
+                    },
+                    "border": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            -320,
+                            -320
+                        ]
+                    }
+                },
+                {
+                    "type": "MMMixUp",
+                    "img_scale": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            640,
+                            640
+                        ]
+                    },
+                    "ratio_range": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            0.8,
+                            1.6
+                        ]
+                    },
+                    "pad_val": 114.0
+                },
+                {
+                    "type": "MMPhotoMetricDistortion",
+                    "brightness_delta": 32,
+                    "contrast_range": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            0.5,
+                            1.5
+                        ]
+                    },
+                    "saturation_range": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            0.5,
+                            1.5
+                        ]
+                    },
+                    "hue_delta": 18
+                },
+                {
+                    "type": "MMRandomFlip",
+                    "flip_ratio": 0.5
+                },
+                {
+                    "type": "MMResize",
+                    "keep_ratio": true
+                },
+                {
+                    "type": "MMPad",
+                    "pad_to_square": true,
+                    "pad_val": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            114.0,
+                            114.0,
+                            114.0
+                        ]
+                    }
+                },
+                {
+                    "type": "MMNormalize",
+                    "mean": [
+                        123.675,
+                        116.28,
+                        103.53
+                    ],
+                    "std": [
+                        58.395,
+                        57.12,
+                        57.375
+                    ],
+                    "to_rgb": true
+                },
+                {
+                    "type": "DefaultFormatBundle"
+                },
+                {
+                    "type": "Collect",
+                    "keys": [
+                        "img",
+                        "gt_bboxes",
+                        "gt_labels"
+                    ]
+                }
+            ],
+            "dynamic_scale": {
+                "__class__": "tuple",
+                "__value__": [
+                    640,
+                    640
+                ]
+            }
+        },
+        "val": {
+            "type": "DetImagesMixDataset",
+            "data_source": {
+                "type": "DetSourceCoco",
+                "ann_file": "/home/shouzhou.bx/workspace/2d_hand/dataset_hand_2d/datasets_TVCOCO_hand_train/to_coco/annotations/instances_val2017.json",
+                "img_prefix": "/home/shouzhou.bx/workspace/2d_hand/dataset_hand_2d/datasets_TVCOCO_hand_train/to_coco/val2017/",
+                "pipeline": [
+                    {
+                        "type": "LoadImageFromFile",
+                        "to_float32": true
+                    },
+                    {
+                        "type": "LoadAnnotations",
+                        "with_bbox": true
+                    }
+                ],
+                "classes": [
+                    "hand"
+                ],
+                "filter_empty_gt": false,
+                "test_mode": true,
+                "iscrowd": true
+            },
+            "pipeline": [
+                {
+                    "type": "MMResize",
+                    "img_scale": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            640,
+                            640
+                        ]
+                    },
+                    "keep_ratio": true
+                },
+                {
+                    "type": "MMPad",
+                    "pad_to_square": true,
+                    "pad_val": {
+                        "__class__": "tuple",
+                        "__value__": [
+                            114.0,
+                            114.0,
+                            114.0
+                        ]
+                    }
+                },
+                {
+                    "type": "MMNormalize",
+                    "mean": [
+                        123.675,
+                        116.28,
+                        103.53
+                    ],
+                    "std": [
+                        58.395,
+                        57.12,
+                        57.375
+                    ],
+                    "to_rgb": true
+                },
+                {
+                    "type": "DefaultFormatBundle"
+                },
+                {
+                    "type": "Collect",
+                    "keys": [
+                        "img"
+                    ]
+                }
+            ],
+            "dynamic_scale": null,
+            "label_padding": false
+        }
+    },
+    "train": {
+        "work_dir": null,
+        "max_epochs": 300,
+        "dataloader": {
+            "batch_size_per_gpu": 16,
+            "workers_per_gpu": 2
+        },
+        "optimizer": {
+            "type": "SGD",
+            "lr": 0.02,
+            "momentum": 0.9,
+            "weight_decay": 0.0005,
+            "nesterov": true,
+            "options": {}
+        },
+        "lr_scheduler": {
+            "policy": "YOLOX",
+            "warmup": "exp",
+            "by_epoch": false,
+            "warmup_by_epoch": true,
+            "warmup_ratio": 1,
+            "warmup_iters": 5,
+            "num_last_epochs": 15,
+            "min_lr_ratio": 0.05
+        },
+        "hooks": [
+            {
+                "type": "CheckpointHook",
+                "interval": 10
+            },
+            {
+                "type": "EvaluationHook",
+                "interval": 10
+            },
+            {
+                "type": "AddLrLogHook"
+            },
+            {
+                "type": "IterTimerHook"
+            },
+            {
+                "type": "YOLOXModeSwitchHook",
+                "no_aug_epochs": 15,
+                "skip_type_keys": {
+                    "__class__": "tuple",
+                    "__value__": [
+                        "MMMosaic",
+                        "MMRandomAffine",
+                        "MMMixUp"
+                    ]
+                },
+                "priority": 48
+            },
+            {
+                "type": "SyncRandomSizeHook",
+                "ratio_range": {
+                    "__class__": "tuple",
+                    "__value__": [
+                        14,
+                        26
+                    ]
+                },
+                "img_scale": {
+                    "__class__": "tuple",
+                    "__value__": [
+                        640,
+                        640
+                    ]
+                },
+                "interval": 10,
+                "priority": 48
+            },
+            {
+                "type": "SyncNormHook",
+                "num_last_epochs": 15,
+                "interval": 10,
+                "priority": 48
+            },
+            {
+                "type": "TextLoggerHook",
+                "interval": 10
+            }
+        ]
+    },
+    "evaluation": {
+        "dataloader": {
+            "batch_size_per_gpu": 2,
+            "workers_per_gpu": 2
+        },
+        "metrics": {
+            "type": "EasyCVMetric",
+            "evaluators": [
+                {
+                    "type": "CocoDetectionEvaluator",
+                    "classes": [
+                        "hand"
+                    ]
+                }
+            ]
+        }
+    },
+    "pipeline": {
+        "type": "yolox-pai_hand-detection",
+        "predictor_config": {
+            "type": "DetectionPredictor"
+        }
+    },
+    "CLASSES": [
+        "hand"
+    ],
+    "custom_hooks": [
+        {
+            "type": "YOLOXModeSwitchHook",
+            "no_aug_epochs": 15,
+            "skip_type_keys": {
+                "__class__": "tuple",
+                "__value__": [
+                    "MMMosaic",
+                    "MMRandomAffine",
+                    "MMMixUp"
+                ]
+            },
+            "priority": 48
+        },
+        {
+            "type": "SyncRandomSizeHook",
+            "ratio_range": {
+                "__class__": "tuple",
+                "__value__": [
+                    14,
+                    26
+                ]
+            },
+            "img_scale": {
+                "__class__": "tuple",
+                "__value__": [
+                    640,
+                    640
+                ]
+            },
+            "interval": 10,
+            "priority": 48
+        },
+        {
+            "type": "SyncNormHook",
+            "num_last_epochs": 15,
+            "interval": 10,
+            "priority": 48
+        }
+    ],
+    "random_size": {
+        "__class__": "tuple",
+        "__value__": [
+            14,
+            26
+        ]
+    },
+    "scale_ratio": {
+        "__class__": "tuple",
+        "__value__": [
+            0.1,
+            2
+        ]
+    },
+    "img_norm_cfg": {
+        "mean": [
+            123.675,
+            116.28,
+            103.53
+        ],
+        "std": [
+            58.395,
+            57.12,
+            57.375
+        ],
+        "to_rgb": true
+    },
+    "img_scale": {
+        "__class__": "tuple",
+        "__value__": [
+            640,
+            640
+        ]
+    },
+    "__easycv_meta__": {
+        "reserved_keys": [
+            "CLASSES",
+            "custom_hooks",
+            "random_size",
+            "scale_ratio",
+            "img_norm_cfg",
+            "img_scale"
+        ]
+    }
+}

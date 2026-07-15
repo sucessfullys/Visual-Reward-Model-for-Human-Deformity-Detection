@@ -61,3 +61,5 @@ We would like to express our sincere gratitude to the following open-source proj
 - [Qwen-VL](https://github.com/QwenLM/Qwen-VL)
 - [LLaVA-Factory](https://github.com/hiyouga/LLaMA-Factory) 
 - [ms-swift](https://github.com/modelscope/ms-swift)
+- [sam3](https://github.com/facebookresearch/sam3)
+- [Gemma](https://github.com/google-deepmind/gemma)

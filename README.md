@@ -63,3 +63,4 @@ We would like to express our sincere gratitude to the following open-source proj
 - [ms-swift](https://github.com/modelscope/ms-swift)
 - [sam3](https://github.com/facebookresearch/sam3)
 - [Gemma](https://github.com/google-deepmind/gemma)
+- [Flux2](https://github.com/black-forest-labs/flux2)

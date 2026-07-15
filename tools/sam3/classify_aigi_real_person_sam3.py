@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Split AIGI-Holmes real images into person / no-person subsets with SAM3.
+"""Split real images into person / no-person subsets with SAM3.
 
 For images where SAM3 finds at least one object for the text prompt "person",
 the image is copied to real_human/images and a same-stem .txt file is written
@@ -111,19 +111,19 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--input-dir",
-        default="/mnt/image-edit/datasets/duanyufa/task_shengsheng/Open_dataset/AIGI-Holmes/dataset_huggingface/0_real",
+        default="XXX",
     )
     parser.add_argument(
         "--human-image-dir",
-        default="/mnt/image-edit/datasets/duanyufa/task_shengsheng/Open_dataset/AIGI-Holmes/dataset_huggingface/real_human/images",
+        default="XXX",
     )
     parser.add_argument(
         "--human-label-dir",
-        default="/mnt/image-edit/datasets/duanyufa/task_shengsheng/Open_dataset/AIGI-Holmes/dataset_huggingface/real_human/labels",
+        default="XXX",
     )
     parser.add_argument(
         "--no-human-dir",
-        default="/mnt/image-edit/datasets/duanyufa/task_shengsheng/Open_dataset/AIGI-Holmes/dataset_huggingface/real_no_human",
+        default="XXX",
     )
     parser.add_argument("--prompt", default="person")
     parser.add_argument("--threshold", type=float, default=0.5)

@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PYTHON_BIN="${PYTHON_BIN:-/mnt/image-edit/datasets/duanyufa/conda_envs/sam3/bin/python}"
-SAM3_DIR="/mnt/image-edit/datasets/duanyufa/task_shengsheng/models/sam3"
+PYTHON_BIN="${PYTHON_BIN:-XXX/python}"
+SAM3_DIR="XXX/sam3"
 SCRIPT="${SAM3_DIR}/classify_aigi_real_person_sam3.py"
 
-INPUT_DIR="${INPUT_DIR:-/mnt/image-edit/datasets/duanyufa/task_shengsheng/Open_dataset/AIGI-Holmes/TestSet/0_real}"
-OUTPUT_ROOT="${OUTPUT_ROOT:-/mnt/image-edit/datasets/duanyufa/task_shengsheng/Open_dataset/AIGI-Holmes/TestSet}"
+INPUT_DIR="${INPUT_DIR:-XXX}"
+OUTPUT_ROOT="${OUTPUT_ROOT:-XXX}"
 HUMAN_IMAGE_DIR="${HUMAN_IMAGE_DIR:-${OUTPUT_ROOT}/real_human/images}"
 HUMAN_LABEL_DIR="${HUMAN_LABEL_DIR:-${OUTPUT_ROOT}/real_human/labels}"
 NO_HUMAN_DIR="${NO_HUMAN_DIR:-${OUTPUT_ROOT}/real_no_human}"
 
-CHECKPOINT_PATH="${CHECKPOINT_PATH:-/mnt/image-edit/datasets/duanyufa/task_shengsheng/models/sam3/hf_sam3.1/sam3.1_multiplex.pt}"
+CHECKPOINT_PATH="${CHECKPOINT_PATH:-XXX/sam3/hf_sam3.1/sam3.1_multiplex.pt}"
 PROMPT="${PROMPT:-person}"
 THRESHOLD="${THRESHOLD:-0.5}"
 MAX_OBJECTS="${MAX_OBJECTS:-0}"
